@@ -15,10 +15,12 @@
   }
   *{box-sizing:border-box;font-family:'Segoe UI',system-ui,Arial,sans-serif;-webkit-font-smoothing:antialiased}
   html,body{margin:0;background:var(--bg);color:var(--txt)}
-  ::-webkit-scrollbar{height:11px;width:11px}
-  ::-webkit-scrollbar-thumb{background:#b9c4d6;border-radius:8px;border:2px solid transparent;background-clip:content-box}
-  ::-webkit-scrollbar-thumb:hover{background:#93a2bb;background-clip:content-box}
-  ::-webkit-scrollbar-track{background:#f2f5fa}
+  /* ---- Bigger, easier scrollbars ---- */
+  ::-webkit-scrollbar{height:16px;width:16px}
+  ::-webkit-scrollbar-thumb{background:#9fb0c8;border-radius:10px;border:3px solid transparent;background-clip:content-box}
+  ::-webkit-scrollbar-thumb:hover{background:#7d90ad;background-clip:content-box}
+  ::-webkit-scrollbar-track{background:#e7ecf3;border-radius:10px}
+  *{scrollbar-width:auto;scrollbar-color:#9fb0c8 #e7ecf3}
 
   header{background:linear-gradient(110deg,var(--pri),var(--pri3));color:#fff;padding:15px 24px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 4px 16px rgba(11,77,140,.28);position:relative;z-index:5}
   header h1{margin:0;font-size:22px;letter-spacing:.4px;font-weight:700;display:flex;align-items:center;gap:9px}
@@ -34,15 +36,18 @@
   .btn{background:var(--pri);color:#fff;border:0;padding:9px 15px;border-radius:8px;font-size:13px;cursor:pointer;font-weight:600;transition:transform .1s,background .15s;box-shadow:0 1px 3px rgba(0,0,0,.12)}
   .btn:hover{background:var(--pri2);transform:translateY(-1px)}
   .btn:active{transform:translateY(0)}
+  .btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
   .btn.acc{background:var(--acc);color:#1b2432}.btn.acc:hover{background:var(--acc2)}
   .btn.ok{background:var(--ok)}.btn.ok:hover{background:var(--ok2)}
   .btn.bad{background:var(--bad)}.btn.bad:hover{background:var(--bad2)}
   .btn.gh{background:#fff;color:var(--pri);border:1px solid var(--pri);box-shadow:none}.btn.gh:hover{background:#f0f6fd}
+  .btn.gh:disabled{background:#fff}
 
   select,input[type=text],input[type=file]{padding:8px 10px;border:1px solid var(--brd);border-radius:8px;font-size:13px;background:#fff;transition:border .15s,box-shadow .15s}
   select:focus,input:focus{outline:0;border-color:var(--pri2);box-shadow:0 0 0 3px rgba(22,104,184,.15)}
 
-  .scrollTop{overflow-x:auto;overflow-y:hidden;height:13px;border:1px solid var(--brd);border-bottom:0;border-radius:12px 12px 0 0;background:#f6f8fc}
+  /* Synced top horizontal scrollbar - taller & clearer */
+  .scrollTop{overflow-x:auto;overflow-y:hidden;height:18px;border:1px solid var(--brd);border-bottom:0;border-radius:12px 12px 0 0;background:#f6f8fc}
   .scrollTop div{height:1px}
 
   .grid{background:var(--card);border:1px solid var(--brd);border-radius:0 0 13px 13px;overflow:auto;max-height:64vh;box-shadow:var(--shadow);position:relative}
@@ -67,6 +72,8 @@
   .grow:not(.even) .gc.s0,.grow:not(.even) .gc.s1{background:#fff}
   .chk{width:15px;height:15px;cursor:pointer;accent-color:var(--pri)}
 
+  .empty{padding:60px 20px;text-align:center;color:var(--mut);font-size:15px}
+  .empty b{display:block;font-size:34px;margin-bottom:8px}
   .hint{color:var(--mut);font-size:11.5px;margin:8px 2px}
 
   #selbar{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(120px);background:linear-gradient(110deg,#0d2135,#12324f);color:#fff;padding:12px 20px;border-radius:14px;box-shadow:0 14px 40px rgba(0,0,0,.35);display:flex;gap:22px;align-items:center;z-index:40;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
@@ -83,7 +90,7 @@
   dialog::backdrop{background:rgba(15,25,45,.5)}
   .dlg-head{background:linear-gradient(110deg,var(--pri),var(--pri3));color:#fff;padding:13px 17px;font-weight:600;display:flex;justify-content:space-between;align-items:center;font-size:15px}
   .dlg-head span{cursor:pointer;opacity:.85}.dlg-head span:hover{opacity:1}
-  .dlg-body{padding:17px;max-height:62vh;overflow:auto}
+  .dlg-body{padding:17px;max-height:66vh;overflow:auto}
   .dlg-body .row{display:flex;gap:9px;align-items:center;margin-bottom:11px}
   .dlg-body .row label{flex:0 0 155px;font-size:13px;color:var(--mut);font-weight:600}
   .dlg-body .row select,.dlg-body .row input{flex:1}
@@ -111,7 +118,31 @@
   .ctable th{text-align:left;background:#f0f5fc;padding:7px 10px;border-bottom:1px solid var(--brd)}
   .ctable td{padding:6px 10px;border-bottom:1px solid var(--brd2)}
   .cbar{height:7px;background:var(--pri3);border-radius:4px}
-  .bulkbox{background:#f5f9fe;border:1px solid #d6e4f7;border-radius:10px;padding:8px 12px;font-size:13px;color:var(--pri);font-weight:600;margin-top:4px}
+
+  /* ---- Bulk Change upgrade ---- */
+  .bstep{border:1px solid var(--brd);border-radius:12px;padding:14px 15px;margin-bottom:12px;position:relative;background:#fff;transition:.15s}
+  .bstep:hover{border-color:#c3d4ea}
+  .bstep .num{position:absolute;top:-11px;left:14px;width:24px;height:24px;border-radius:50%;background:var(--pri);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 5px rgba(11,77,140,.3)}
+  .bstep .stitle{font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;margin:2px 0 9px 4px}
+  .bstep.set{background:linear-gradient(135deg,#fffdf5,#fff8e6);border-color:#f0dca0}
+  .bstep.set .num{background:var(--acc);color:#1b2432}
+  .brow{display:flex;gap:9px;align-items:center}
+  .brow select,.brow input{flex:1}
+  .bchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px;min-height:8px}
+  .bchip{display:inline-flex;align-items:center;gap:6px;background:var(--pri);color:#fff;border-radius:20px;padding:4px 6px 4px 11px;font-size:12px;font-weight:600;animation:pop .12s ease}
+  .bchip x{cursor:pointer;background:rgba(255,255,255,.25);border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center;font-size:11px;line-height:1;font-style:normal}
+  .bchip x:hover{background:rgba(255,255,255,.45)}
+  .bpick{position:relative}
+  .bpickbtn{width:100%;text-align:left;background:#fff;border:1px dashed var(--brd);border-radius:8px;padding:9px 11px;cursor:pointer;font-size:13px;color:var(--mut);transition:.15s;margin-top:2px}
+  .bpickbtn:hover{border-color:var(--pri2);color:var(--pri)}
+  .bpicklist{display:none;position:absolute;z-index:5;top:calc(100% + 4px);left:0;right:0;background:#fff;border:1px solid var(--brd);border-radius:10px;box-shadow:var(--shadow2);max-height:230px;overflow:auto;padding:6px}
+  .bpicklist.open{display:block}
+  .bpicklist .psearch{display:flex;gap:6px;padding:4px 4px 8px;position:sticky;top:0;background:#fff}
+  .bpicklist .psearch input{flex:1;font-size:12px;padding:6px 8px}
+  .bpreview{display:flex;align-items:center;gap:13px;background:linear-gradient(135deg,#eef6ff,#e3f0fe);border:1px solid #c7defa;border-radius:12px;padding:14px 17px;margin-top:4px}
+  .bpreview .pn{font-size:32px;font-weight:800;color:var(--pri);line-height:1}
+  .bpreview .pt{font-size:12.5px;color:var(--pri);font-weight:600}
+  .bpreview .pt small{display:block;color:var(--mut);font-weight:500;margin-top:2px}
 </style>
 </head>
 <body>
@@ -119,7 +150,7 @@
 <header>
   <div>
     <h1>🎯 Lead Cockpit</h1>
-    <small>Virtualized • smooth for 50k+ rows</small>
+    <small>Upload → Filter → Edit → Reassign → Analyze → Export</small>
   </div>
   <div class="badges">
     <span class="stat" id="statRows">0 leads</span>
@@ -133,8 +164,6 @@
   <div class="toolbar">
     <label>📂 Upload:</label>
     <input type="file" id="fileIn" accept=".xlsx,.xls,.csv">
-    <button class="btn gh" onclick="loadDemo(500)">Demo (500)</button>
-    <button class="btn gh" onclick="loadDemo(10000)">Stress (10k)</button>
     <span class="sep"></span>
     <label>📅 Date:</label>
     <button class="btn" onclick="sortByDate('asc')">Oldest → Newest</button>
@@ -145,6 +174,7 @@
     <button class="btn acc" onclick="openReassign()">🔀 Reassign</button>
     <button class="btn bad gh" onclick="openRemove()">🗑 Remove</button>
     <button class="btn gh" onclick="openCounts()">📊 Counts</button>
+    <button class="btn gh" id="undoBtn" onclick="undo()" disabled>↩️ Undo</button>
     <span class="sep"></span>
     <input type="text" id="search" placeholder="🔍 Search all…" oninput="debouncedFilter()" style="width:170px">
     <button class="btn gh" onclick="clearAllFilters()">Clear Filters</button>
@@ -162,8 +192,9 @@
   <div class="grid" id="grid">
     <div class="ghead" id="ghead"></div>
     <div class="gbodywrap" id="gbody"></div>
+    <div class="empty" id="emptyMsg"><b>📂</b>Upload your dump (.xlsx) to get started.</div>
   </div>
-  <p class="hint">💡 Click a cell to edit • Click ▾ on any header to filter • Tick rows for live sum & count • 🎚 Bulk Change now supports multiple values.</p>
+  <p class="hint">💡 Click a cell to edit • Click ▾ on any header to filter • Tick rows for live sum & count • ↩️ Undo reverts your last change.</p>
 
 </div>
 
@@ -196,26 +227,51 @@
   <div class="dlg-foot"><button class="btn gh" onclick="dlgRename.close()">Cancel</button><button class="btn ok" onclick="applyRename()">Apply</button></div>
 </dialog>
 
-<dialog id="dlgBulk">
+<dialog id="dlgBulk" style="max-width:540px">
   <div class="dlg-head">🎚 Bulk Change Values <span onclick="dlgBulk.close()">✕</span></div>
   <div class="dlg-body">
-    <div class="row"><label>Where column:</label><select id="bulkWhereCol" onchange="buildBulkVals()"></select></div>
-    <div class="row" style="align-items:flex-start"><label>equals (any of):</label>
-      <div style="flex:1">
-        <div style="display:flex;gap:6px;margin-bottom:6px">
-          <button type="button" class="btn gh" style="padding:5px 9px;font-size:11px" onclick="bulkValsAll(true)">All</button>
-          <button type="button" class="btn gh" style="padding:5px 9px;font-size:11px" onclick="bulkValsAll(false)">None</button>
-          <input type="text" id="bulkValSearch" placeholder="Search values…" style="flex:1;font-size:12px" oninput="bulkValSearchFn()">
-        </div>
-        <div id="bulkWhereVals" style="display:flex;flex-direction:column;gap:1px;max-height:180px;overflow:auto;border:1px solid var(--brd);border-radius:8px;padding:6px"></div>
+
+    <div class="bstep">
+      <div class="num">1</div>
+      <div class="stitle">Find leads where…</div>
+      <div class="brow">
+        <select id="bulkWhereCol" onchange="buildBulkVals()"></select>
+        <span style="font-size:12px;color:var(--mut);font-weight:700">is any of</span>
       </div>
+      <div class="bpick">
+        <button type="button" class="bpickbtn" id="bulkPickBtn" onclick="toggleBulkPick(event)">＋ Choose values…</button>
+        <div class="bpicklist" id="bulkPickList">
+          <div class="psearch">
+            <input type="text" id="bulkValSearch" placeholder="Search…" oninput="bulkValSearchFn()">
+            <button type="button" class="btn gh" style="padding:5px 9px;font-size:11px" onclick="bulkValsAll(true)">All</button>
+            <button type="button" class="btn gh" style="padding:5px 9px;font-size:11px" onclick="bulkValsAll(false)">None</button>
+          </div>
+          <div id="bulkWhereVals"></div>
+        </div>
+      </div>
+      <div class="bchips" id="bulkChips"></div>
     </div>
-    <div class="row"><label>Set column:</label><select id="bulkSetCol" onchange="fillSetOpts()"></select></div>
-    <div class="row"><label>to value:</label><input type="text" id="bulkSetVal" placeholder="Type new value" list="bulkSetOpts"><datalist id="bulkSetOpts"></datalist></div>
-    <label class="chkitem"><input type="checkbox" id="bulkVisibleOnly" onchange="bulkPreview()"> Apply only to currently filtered rows</label>
-    <div class="bulkbox" id="bulkPreview">This will update 0 lead(s).</div>
+
+    <div style="text-align:center;color:var(--pri3);font-size:20px;margin:-4px 0 8px">↓</div>
+
+    <div class="bstep set">
+      <div class="num">2</div>
+      <div class="stitle">Then set…</div>
+      <div class="brow">
+        <select id="bulkSetCol" onchange="fillSetOpts()"></select>
+        <span style="font-size:12px;color:var(--mut);font-weight:700">to</span>
+        <input type="text" id="bulkSetVal" placeholder="new value" list="bulkSetOpts" oninput="bulkPreview()"><datalist id="bulkSetOpts"></datalist>
+      </div>
+      <label class="chkitem" style="margin-top:8px"><input type="checkbox" id="bulkVisibleOnly" onchange="bulkPreview()"> Apply only to currently filtered rows</label>
+    </div>
+
+    <div class="bpreview">
+      <div class="pn" id="bulkPn">0</div>
+      <div class="pt" id="bulkPt">leads will be updated<small>Choose values in step 1 to begin</small></div>
+    </div>
+
   </div>
-  <div class="dlg-foot"><button class="btn gh" onclick="dlgBulk.close()">Cancel</button><button class="btn ok" onclick="applyBulk()">Apply</button></div>
+  <div class="dlg-foot"><button class="btn gh" onclick="dlgBulk.close()">Cancel</button><button class="btn ok" onclick="applyBulk()">Apply Changes</button></div>
 </dialog>
 
 <dialog id="dlgRemove">
@@ -281,6 +337,21 @@ COLS.forEach(function(c){ COLW.push(Math.min(Math.max(c.length*8+26,90),240)); }
 let DATA=[], VIEW=[], OWNER_FILTER=null, FILTERS={}, fpopCol=null;
 let SELECTED=new Set();
 let _distinctCache={}, _searchTimer=null;
+let HISTORY=[]; const HISTORY_MAX=20;
+
+/* ===== Undo engine ===== */
+function snapshot(){
+  try{ HISTORY.push(structuredClone(DATA)); }
+  catch(e){ HISTORY.push(JSON.parse(JSON.stringify(DATA))); }
+  if(HISTORY.length>HISTORY_MAX) HISTORY.shift();
+  updateUndoBtn();
+}
+function undo(){
+  if(!HISTORY.length) return;
+  DATA=HISTORY.pop();
+  SELECTED.clear(); invalidate(); refresh(); updateUndoBtn();
+}
+function updateUndoBtn(){ const b=document.getElementById('undoBtn'); if(b) b.disabled=HISTORY.length===0; }
 
 /* ===== Upload ===== */
 document.getElementById('fileIn').addEventListener('change', function(e){
@@ -307,32 +378,7 @@ function ingest(rows){
   });
   resetState(); DATA.sort(byTs('asc')); refresh();
 }
-function loadDemo(n){
-  const owners=["Pramod Kumar","Nandini Borade","Shubhi Mishra","Jaydeep Parmar","Rohan Suman"];
-  const ratings=["Hot","Warm","Cold","Nurture"];
-  const disps=["No Answer","Connected","Callback","Not Interested","Switched Off"];
-  const progs=["MIT xPRO AI","Wharton MDP","HMS CLLE","Kellogg PMLA"];
-  DATA=Array.from({length:n},function(_,i){
-    const d=new Date(2026,5,Math.floor(Math.random()*28)+1);
-    const o={}; COLS.forEach(function(c){ o[c]=''; });
-    o["Lead Id"]=10000+i; o["Ic Id"]="IC"+(2000+i);
-    o["Lead Lead Name"]="Lead "+(i+1);
-    o["Program Name"]=progs[i%progs.length];
-    o["Wrike Run Code"]="MO-AIP";
-    o["Lead Owner Name"]=owners[i%owners.length];
-    o["Ic Rating"]=ratings[i%ratings.length];
-    o["Call Disposition"]=disps[i%disps.length];
-    o["Region Name"]=["APAC","EMEA","NAM"][i%3];
-    o["Lead Country Orig"]=["India","UAE","UK","Saudi Arabia"][i%4];
-    o["Fy Qtr"]="FY26 Q2";
-    o["Attempts"]=Math.floor(Math.random()*6);
-    o["Lead Lastactivitydate"]=d.toISOString().slice(0,10);
-    o._ts=tsOf(o[DATE_COL]);
-    return o;
-  });
-  resetState(); DATA.sort(byTs('asc')); refresh();
-}
-function resetState(){ FILTERS={}; OWNER_FILTER=null; SELECTED.clear(); _distinctCache={}; document.getElementById('search').value=''; }
+function resetState(){ FILTERS={}; OWNER_FILTER=null; SELECTED.clear(); _distinctCache={}; HISTORY=[]; updateUndoBtn(); document.getElementById('search').value=''; }
 
 /* ===== Distinct (cached) ===== */
 function distinct(col){
@@ -360,7 +406,7 @@ function byTs(dir){
     return dir==='asc'?x-y:y-x;
   };
 }
-function sortByDate(dir){ DATA.sort(byTs(dir)); applyFilter(); }
+function sortByDate(dir){ commitActiveEdit(); DATA.sort(byTs(dir)); applyFilter(); }
 
 /* ===== Render (virtualized) ===== */
 const grid=document.getElementById('grid');
@@ -371,7 +417,23 @@ let totalW=COLW.reduce(function(a,b){return a+b;},0);
 
 function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
 
-function refresh(){ buildHead(); applyFilter(); buildOwnerPills(); syncScrollbar(); }
+function refresh(){ buildHead(); applyFilter(); buildOwnerPills(); syncScrollbar(); toggleEmpty(); }
+function toggleEmpty(){ document.getElementById('emptyMsg').style.display = DATA.length ? 'none' : 'block'; }
+
+function commitActiveEdit(){
+  const el=document.activeElement;
+  if(el && el.classList && el.classList.contains('gc') && el.getAttribute('contenteditable')==='true'){
+    const idx=+el.getAttribute('data-idx');
+    const col=el.getAttribute('data-col');
+    const newVal=el.textContent.trim();
+    if(DATA[idx][col]!==newVal){
+      snapshot();
+      DATA[idx][col]=newVal;
+      if(col===DATE_COL) DATA[idx]._ts=tsOf(DATA[idx][col]);
+      if(MANAGE_COLS.indexOf(col)!==-1) invalidate();
+    }
+  }
+}
 
 function buildHead(){
   const left1=COLW[0];
@@ -390,6 +452,7 @@ function buildHead(){
 }
 
 function renderRows(){
+  commitActiveEdit();
   const scrollTop=grid.scrollTop - ghead.offsetHeight;
   const start=Math.max(0,Math.floor(scrollTop/ROWH)-BUFFER);
   const visible=Math.ceil(grid.clientHeight/ROWH)+BUFFER*2;
@@ -456,9 +519,13 @@ gbody.addEventListener('blur',function(e){
   if(el.classList && el.classList.contains('gc') && el.getAttribute('contenteditable')==='true'){
     const idx=+el.getAttribute('data-idx');
     const col=el.getAttribute('data-col');
-    DATA[idx][col]=el.textContent.trim();
-    if(col===DATE_COL) DATA[idx]._ts=tsOf(DATA[idx][col]);
-    if(MANAGE_COLS.indexOf(col)!==-1) invalidate();
+    const newVal=el.textContent.trim();
+    if(DATA[idx][col]!==newVal){
+      snapshot();
+      DATA[idx][col]=newVal;
+      if(col===DATE_COL) DATA[idx]._ts=tsOf(DATA[idx][col]);
+      if(MANAGE_COLS.indexOf(col)!==-1) invalidate();
+    }
   }
 },true);
 gbody.addEventListener('change',function(e){
@@ -518,36 +585,48 @@ document.addEventListener('click',function(e){
 });
 
 /* ===== Rename ===== */
-function openRename(){ const sel=document.getElementById('renameCol');
+function openRename(){ commitActiveEdit(); const sel=document.getElementById('renameCol');
   sel.innerHTML=COLS.map(function(c){return '<option>'+esc(c)+'</option>';}).join(''); sel.value="Ic Rating"; buildRenameList(); dlgRename.showModal(); }
 function buildRenameList(){ const col=document.getElementById('renameCol').value; const body=document.getElementById('renameBody');
   const list=distinct(col); if(!list.length){ body.innerHTML='<p class="hint">No values in this column.</p>'; return; }
   body.innerHTML=list.map(function(r){ return '<div class="row"><label>'+esc(r)+'</label><input type="text" value="'+esc(r)+'" data-old="'+esc(r)+'"></div>'; }).join(''); }
-function applyRename(){ const col=document.getElementById('renameCol').value; const map={};
+function applyRename(){ snapshot(); const col=document.getElementById('renameCol').value; const map={};
   document.querySelectorAll('#renameBody input').forEach(function(i){ map[i.getAttribute('data-old')]=i.value.trim()||i.getAttribute('data-old'); });
   DATA.forEach(function(r){ const v=String(r[col]||''); if(map[v]!==undefined) r[col]=map[v]; });
   delete FILTERS[col]; invalidate(); dlgRename.close(); refresh(); }
 
-/* ===== Bulk Change (multi-value equals) ===== */
-function openBulk(){ const w=document.getElementById('bulkWhereCol'), s=document.getElementById('bulkSetCol');
+/* ===== Bulk Change (visual, chips) ===== */
+function openBulk(){ commitActiveEdit();
+  const w=document.getElementById('bulkWhereCol'), s=document.getElementById('bulkSetCol');
   w.innerHTML=COLS.map(function(c){return '<option>'+esc(c)+'</option>';}).join('');
   s.innerHTML=COLS.map(function(c){return '<option>'+esc(c)+'</option>';}).join('');
   w.value="Call Disposition"; s.value="Ic Rating";
-  document.getElementById('bulkSetVal').value=''; document.getElementById('bulkVisibleOnly').checked=false;
+  document.getElementById('bulkSetVal').value='';
+  document.getElementById('bulkVisibleOnly').checked=false;
   document.getElementById('bulkValSearch').value='';
-  buildBulkVals(); fillSetOpts(); dlgBulk.showModal(); }
+  document.getElementById('bulkPickList').classList.remove('open');
+  buildBulkVals(); fillSetOpts(); dlgBulk.showModal();
+}
+function toggleBulkPick(ev){ ev.stopPropagation(); document.getElementById('bulkPickList').classList.toggle('open'); }
+document.addEventListener('click',function(e){
+  const list=document.getElementById('bulkPickList');
+  if(list && list.classList.contains('open')){
+    const pick=document.querySelector('.bpick');
+    if(pick && !pick.contains(e.target)) list.classList.remove('open');
+  }
+});
 function buildBulkVals(){
   const col=document.getElementById('bulkWhereCol').value;
   const box=document.getElementById('bulkWhereVals');
   const vals=distinct(col);
   box.innerHTML = vals.length
-    ? vals.map(function(v){ return '<label class="chkitem"><input type="checkbox" class="bwv" value="'+esc(v)+'" checked onchange="bulkPreview()">'+esc(v)+'</label>'; }).join('')
-    : '<div class="hint">No values</div>';
-  bulkPreview();
+    ? vals.map(function(v){ return '<label class="chkitem"><input type="checkbox" class="bwv" value="'+esc(v)+'" onchange="renderChips()">'+esc(v)+'</label>'; }).join('')
+    : '<div class="hint" style="padding:8px">No values</div>';
+  renderChips();
 }
 function bulkValsAll(on){
   document.querySelectorAll('#bulkWhereVals .bwv').forEach(function(c){ if(c.parentElement.style.display!=='none') c.checked=on; });
-  bulkPreview();
+  renderChips();
 }
 function bulkValSearchFn(){
   const q=document.getElementById('bulkValSearch').value.toLowerCase();
@@ -558,23 +637,44 @@ function bulkValSearchFn(){
 function selectedBulkVals(){
   return new Set([...document.querySelectorAll('#bulkWhereVals .bwv:checked')].map(function(c){ return c.value; }));
 }
+function renderChips(){
+  const chosen=[...selectedBulkVals()];
+  const box=document.getElementById('bulkChips');
+  const btn=document.getElementById('bulkPickBtn');
+  box.innerHTML=chosen.map(function(v){
+    return '<span class="bchip">'+esc(v)+'<x onclick="removeChip(\''+v.replace(/'/g,"\\'")+'\')">✕</x></span>';
+  }).join('');
+  btn.textContent = chosen.length ? '＋ Add / edit values ('+chosen.length+' selected)' : '＋ Choose values…';
+  bulkPreview();
+}
+function removeChip(v){
+  document.querySelectorAll('#bulkWhereVals .bwv').forEach(function(c){ if(c.value===v) c.checked=false; });
+  renderChips();
+}
 function fillSetOpts(){ const col=document.getElementById('bulkSetCol').value;
   document.getElementById('bulkSetOpts').innerHTML=distinct(col).map(function(v){return '<option value="'+esc(v)+'">';}).join(''); }
 function bulkPreview(){
   const wc=document.getElementById('bulkWhereCol').value;
   const chosen=selectedBulkVals();
+  const sc=document.getElementById('bulkSetCol').value;
+  const sv=document.getElementById('bulkSetVal').value.trim();
   const visOnly=document.getElementById('bulkVisibleOnly').checked;
   const pool=visOnly?VIEW.map(function(i){return DATA[i];}):DATA;
   const n=pool.filter(function(r){ return chosen.has(String(r[wc]||'')); }).length;
-  document.getElementById('bulkPreview').textContent='This will update '+n+' lead(s) across '+chosen.size+' value(s).';
+  document.getElementById('bulkPn').textContent=n;
+  const pt=document.getElementById('bulkPt');
+  if(!chosen.size) pt.innerHTML='leads will be updated<small>Choose values in step 1 to begin</small>';
+  else if(!sv) pt.innerHTML='leads match<small>Enter a value in step 2 to set</small>';
+  else pt.innerHTML='leads will be updated<small>'+esc(wc)+' → '+esc(sc)+' = "'+esc(sv)+'"</small>';
 }
 function applyBulk(){
   const wc=document.getElementById('bulkWhereCol').value;
   const chosen=selectedBulkVals();
   const sc=document.getElementById('bulkSetCol').value;
   const sv=document.getElementById('bulkSetVal').value.trim();
-  if(!chosen.size){ alert('Tick at least one value under "equals".'); return; }
-  if(sv===''){ alert('Enter a value to set.'); return; }
+  if(!chosen.size){ alert('Choose at least one value in step 1.'); return; }
+  if(sv===''){ alert('Enter a value to set in step 2.'); return; }
+  snapshot();
   const visOnly=document.getElementById('bulkVisibleOnly').checked;
   const allowed=visOnly?new Set(VIEW):null; let n=0;
   DATA.forEach(function(r,i){
@@ -586,7 +686,7 @@ function applyBulk(){
 }
 
 /* ===== Remove ===== */
-function openRemove(){ const sel=document.getElementById('removeCol');
+function openRemove(){ commitActiveEdit(); const sel=document.getElementById('removeCol');
   sel.innerHTML=MANAGE_COLS.map(function(c){return '<option>'+esc(c)+'</option>';}).join(''); buildRemoveList(); dlgRemove.showModal(); }
 function buildRemoveList(){ const col=document.getElementById('removeCol').value, body=document.getElementById('removeBody');
   const list=distinct(col); if(!list.length){ body.innerHTML='<p class="hint">No values in this column.</p>'; return; }
@@ -595,11 +695,12 @@ function buildRemoveList(){ const col=document.getElementById('removeCol').value
 function applyRemove(){ const col=document.getElementById('removeCol').value;
   const rm=new Set([...document.querySelectorAll('#removeBody .rmchk:checked')].map(function(c){return c.value;}));
   if(!rm.size){ alert('Select at least one value.'); return; }
+  snapshot();
   const before=DATA.length; DATA=DATA.filter(function(r){ return !rm.has(String(r[col]||'')); });
   SELECTED.clear(); invalidate(); dlgRemove.close(); refresh(); alert('Removed '+(before-DATA.length)+' leads.'); }
 
 /* ===== Reassign ===== */
-function openReassign(){ const owners=distinct("Lead Owner Name");
+function openReassign(){ commitActiveEdit(); const owners=distinct("Lead Owner Name");
   document.getElementById('srcOwner').innerHTML=owners.map(function(o){return '<option>'+esc(o)+'</option>';}).join('');
   document.getElementById('targetList').innerHTML=owners.map(function(o){ return '<label class="chkitem"><input type="checkbox" class="tgt" value="'+esc(o)+'" checked>'+esc(o)+'</label>'; }).join('');
   srcModeChange(); dlgReassign.showModal(); }
@@ -616,6 +717,7 @@ function applyReassign(){
   else if(srcMode==='checked'){ SELECTED.forEach(function(idx){ affected.push(DATA[idx]); }); }
   else affected=DATA.slice();
   if(!affected.length){ alert('No leads matched the source.'); return; }
+  snapshot();
   if(distMode==='single') affected.forEach(function(r){ r["Lead Owner Name"]=targets[0]; });
   else affected.forEach(function(r,i){ r["Lead Owner Name"]=targets[i%targets.length]; });
   invalidate(); dlgReassign.close(); refresh();
@@ -638,7 +740,7 @@ function updateSelbar(){
 }
 
 /* ===== Counts ===== */
-function openCounts(){ const body=document.getElementById('countsBody');
+function openCounts(){ commitActiveEdit(); const body=document.getElementById('countsBody');
   const totalAttempts=DATA.reduce(function(s,r){ const n=parseFloat(r[NUM_COL]); return s+(isNaN(n)?0:n); },0);
   let html='<div class="cards">'+kpi(DATA.length,'Total Leads')+kpi(distinct("Lead Owner Name").length,'Advisors')
     +kpi(distinct("Program Name").length,'Programs')+kpi(totalAttempts,'Total Attempts')+'</div>';
@@ -660,10 +762,20 @@ function countTable(title,col){
 /* ===== Utilities ===== */
 function clearAll(){ DATA=[]; resetState(); refresh(); }
 
-/* ===== Export ===== */
+/* ===== Export (asks: all vs filtered; commits active edit first) ===== */
 function exportExcel(){
+  commitActiveEdit();
   if(!DATA.length){ alert('No data to export.'); return; }
-  const rows=VIEW.length?VIEW.map(function(i){return DATA[i];}):DATA;
+  const hasFilter = Object.keys(FILTERS).length || OWNER_FILTER || document.getElementById('search').value.trim();
+  let rows;
+  if(hasFilter){
+    const onlyVisible = confirm(
+      'Filters are active.\n\nOK = export ONLY the '+VIEW.length+' filtered row(s)\nCancel = export ALL '+DATA.length+' row(s)'
+    );
+    rows = onlyVisible ? VIEW.map(function(i){return DATA[i];}) : DATA;
+  } else {
+    rows = DATA;
+  }
   const XL=window.XLSX;
   const aoa=[COLS].concat(rows.map(function(r){ return COLS.map(function(c){ return r[c]||''; }); }));
   const ws=XL.utils.aoa_to_sheet(aoa);
